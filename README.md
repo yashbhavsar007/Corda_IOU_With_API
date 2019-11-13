@@ -140,3 +140,12 @@ You should extend this template as follows:
 
 For a guided example of how to extend this template, see the Hello, World! tutorial 
 [here](https://docs.corda.net/hello-world-introduction.html).
+
+# Some commands example to remember 
+To query vault ---> run vaultQuery contractStateType: com.template.states.IOUState
+
+Start TransferFlow ---> 
+start IOUTransferFlow 	stateRef: {txhash: BD6A05B138FD9C1995CFE73520EEC9D9EBBD288E9204147174A95DAA626525C1,index: 0}, amount: 10 USD, Receiver: "O=PartyB,L=New York,C=US" 
+
+start IssueFlow --->
+start IOUIssueFlow amount: 100 USD, BParty: "O=PartyB,L=New York,C=US"
