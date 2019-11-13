@@ -90,16 +90,16 @@ class Controller(rpc: NodeRPCConnection) {
     @PostMapping(value= "getState", produces = ["application/json"], headers = ["Content-Type=application/json"])
     private fun GetState(request: HttpServletRequest):ResponseEntity<Vault.Page<ContractState>>{
 
-        val dummyStateRef = StateRef(SecureHash.zeroHash, 0)
-
-        val queryByStateRefCriteria = VaultQueryCriteria(stateRefs = listOf(dummyStateRef))
-        val sortAttribute = SortAttribute.Standard(Sort.CommonStateAttribute.STATE_REF_TXN_ID)
-        val contractStateTypes = HashSet(asList(DealState::class.java, LinearState::class.java))
-
-
-        val queryByStateRefResults = proxy.vaultQueryBy<ContractState>(queryByStateRefCriteria, PageSpecification(DEFAULT_PAGE_SIZE),Sort(setOf(Sort.SortColumn(sortAttribute, Sort.Direction.ASC))))
-        val queryByStateRefMetadata = queryByStateRefResults.statesMetadata
-        val dummyStateRefRecordedTime = queryByStateRefMetadata.single().recordedTime
+//        val dummyStateRef = StateRef(SecureHash.zeroHash, 0)
+//
+//        val queryByStateRefCriteria = VaultQueryCriteria(stateRefs = listOf(dummyStateRef))
+//        val sortAttribute = SortAttribute.Standard(Sort.CommonStateAttribute.STATE_REF_TXN_ID)
+//        val contractStateTypes = HashSet(asList(DealState::class.java, LinearState::class.java))
+//
+//
+//        val queryByStateRefResults = proxy.vaultQueryBy<ContractState>(queryByStateRefCriteria, PageSpecification(DEFAULT_PAGE_SIZE),Sort(setOf(Sort.SortColumn(sortAttribute, Sort.Direction.ASC))))
+//        val queryByStateRefMetadata = queryByStateRefResults.statesMetadata
+//        val dummyStateRefRecordedTime = queryByStateRefMetadata.single().recordedTime
 
 
     }
