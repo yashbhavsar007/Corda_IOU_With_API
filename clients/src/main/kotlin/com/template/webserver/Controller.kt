@@ -95,12 +95,12 @@ class Controller(rpc: NodeRPCConnection) {
     @PostMapping(value= "getState", produces = ["application/json"], headers = ["Content-Type=application/json"])
     private fun GetState(request: HttpServletRequest):ResponseEntity<String>{
 
-        val dummyStateRef = StateRef(SecureHash.zeroHash, 0)
-        val contractStateTypes = HashSet(listOf(IOUState::class.java))
-
-        val queryByStateRefCriteria = VaultQueryCriteria(Vault.StateStatus.UNCONSUMED,contractStateTypes)
-
-        val sortAttribute = SortAttribute.Standard(Sort.VaultStateAttribute.CONSTRAINT_TYPE)
+//        val dummyStateRef = StateRef(SecureHash.zeroHash, 0)
+//        val contractStateTypes = HashSet(listOf(IOUState::class.java))
+//
+//        val queryByStateRefCriteria = VaultQueryCriteria(Vault.StateStatus.UNCONSUMED,contractStateTypes)
+//
+//        val sortAttribute = SortAttribute.Standard(Sort.VaultStateAttribute.CONSTRAINT_TYPE)
 
 
        // val contractStateTypes = HashSet(listOf<Class<IOUState>>(Cash.State::class.java))
@@ -109,7 +109,7 @@ class Controller(rpc: NodeRPCConnection) {
                 //vaultQueryBy(queryByStateRefCriteria, PageSpecification(DEFAULT_PAGE_SIZE),Sort(setOf(Sort.SortColumn(sortAttribute, Sort.Direction.ASC))),IOUState::class.java)
       //  val queryByStateRefMetadata = queryByStateRefResults.statesMetadata
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("queryByStateRefResults is $queryByStateRefResults ")
+        return ResponseEntity.status(HttpStatus.CREATED).body( "{data: $queryByStateRefResults}" )
         //("contractStateTypes is $contractStateTypes queryByStateRefCriteria is $queryByStateRefCriteria  sortAttribute is $sortAttribute queryByStateRefMetadata is $queryByStateRefMetadata  queryByStateRefResults is $queryByStateRefResults and ${queryByStateRefResults.states} ")
 
 
