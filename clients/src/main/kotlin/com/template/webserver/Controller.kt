@@ -27,10 +27,15 @@ import net.corda.core.node.services.vault.QueryCriteria
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria
 import net.corda.core.contracts.StateRef
 import net.corda.core.crypto.SecureHash
-import net.corda.finance.contracts.DealState
 import java.util.HashSet
 import net.corda.core.contracts.LinearState
 import java.util.Arrays.asList
+import java.util.Collections.singletonList
+import java.util.Collections.singletonList
+
+
+
+
 
 
 /**
@@ -88,18 +93,24 @@ class Controller(rpc: NodeRPCConnection) {
 
 
     @PostMapping(value= "getState", produces = ["application/json"], headers = ["Content-Type=application/json"])
-    private fun GetState(request: HttpServletRequest):ResponseEntity<Vault.Page<ContractState>>{
+    private fun GetState(request: HttpServletRequest):ResponseEntity<String>{
 
-//        val dummyStateRef = StateRef(SecureHash.zeroHash, 0)
-//
-//        val queryByStateRefCriteria = VaultQueryCriteria(stateRefs = listOf(dummyStateRef))
-//        val sortAttribute = SortAttribute.Standard(Sort.CommonStateAttribute.STATE_REF_TXN_ID)
-//        val contractStateTypes = HashSet(asList(DealState::class.java, LinearState::class.java))
-//
-//
-//        val queryByStateRefResults = proxy.vaultQueryBy<ContractState>(queryByStateRefCriteria, PageSpecification(DEFAULT_PAGE_SIZE),Sort(setOf(Sort.SortColumn(sortAttribute, Sort.Direction.ASC))))
-//        val queryByStateRefMetadata = queryByStateRefResults.statesMetadata
-//        val dummyStateRefRecordedTime = queryByStateRefMetadata.single().recordedTime
+        val dummyStateRef = StateRef(SecureHash.zeroHash, 0)
+        val contractStateTypes = HashSet(listOf(IOUState::class.java))
+
+        val queryByStateRefCriteria = VaultQueryCriteria(Vault.StateStatus.UNCONSUMED,contractStateTypes)
+
+        val sortAttribute = SortAttribute.Standard(Sort.VaultStateAttribute.CONSTRAINT_TYPE)
+
+
+       // val contractStateTypes = HashSet(listOf<Class<IOUState>>(Cash.State::class.java))
+
+        val queryByStateRefResults = proxy.vaultQuery<ContractState>(IOUState::class.java)
+                //vaultQueryBy(queryByStateRefCriteria, PageSpecification(DEFAULT_PAGE_SIZE),Sort(setOf(Sort.SortColumn(sortAttribute, Sort.Direction.ASC))),IOUState::class.java)
+      //  val queryByStateRefMetadata = queryByStateRefResults.statesMetadata
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("queryByStateRefResults is $queryByStateRefResults ")
+        //("contractStateTypes is $contractStateTypes queryByStateRefCriteria is $queryByStateRefCriteria  sortAttribute is $sortAttribute queryByStateRefMetadata is $queryByStateRefMetadata  queryByStateRefResults is $queryByStateRefResults and ${queryByStateRefResults.states} ")
 
 
     }
